@@ -14,7 +14,7 @@ function DataTable() {
                 <tbody>
                     <tr>
                         <td>22/04/2021</td>
-                        <td>Barry Allen</td>
+                        <td>Jaqueline Mayers</td>
                         <td>34</td>
                         <td>25</td>
                         <td>15017.00</td>
@@ -36,6 +36,13 @@ function DataTable() {
                     <tr>
                         <td>22/04/2021</td>
                         <td>Claudia Miller</td>
+                        <td>46</td>
+                        <td>21</td>
+                        <td>21021.50</td>
+                    </tr>
+                    <tr>
+                        <td>22/04/2021</td>
+                        <td>Garden Jardim</td>
                         <td>46</td>
                         <td>21</td>
                         <td>21021.50</td>
