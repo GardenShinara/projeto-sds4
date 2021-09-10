@@ -1,5 +1,37 @@
+import axios from "axios";
+import Pagination from "components/Pagination";
+import { useEffect, useState } from "react";
+import { SalePage } from "types/sale";
+import { formatLocalDate } from "utils/format";
+import { BASE_URL } from "utils/requests";
+
 function DataTable() {
+
+    const [activePage, setActivePage] = useState(0);
+    
+    const [page, setPage] = useState<SalePage>({
+        first: true,
+        last: true,
+        number: 0,
+        totalElements: 0,
+        totalPages: 0
+    });
+
+    useEffect(() => {
+        axios. get(`${BASE_URL}/Sales?page=${activePage}&size=20&sort=date,desc`)
+            .then(response => {
+                setPage(response.data);
+            });
+    }, [activePage]);
+
+    const changePage = (index: number) => {
+        setActivePage(index);
+    }
+
+
     return (
+        <>
+        <Pagination page={page} onPageChange={changePage} />
         <div className="table-responsive">
             <table className="table table-striped table-sm">
                 <thead>
@@ -12,44 +44,19 @@ function DataTable() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>22/04/2021</td>
-                        <td>Jaqueline Mayers</td>
-                        <td>34</td>
-                        <td>25</td>
-                        <td>15017.00</td>
-                    </tr>
-                    <tr>
-                        <td>22/04/2021</td>
-                        <td>Laura Dlucca</td>
-                        <td>45</td>
-                        <td>35</td>
-                        <td>25017.00</td>
-                    </tr>
-                    <tr>
-                        <td>22/04/2021</td>
-                        <td>Laura Portman</td>
-                        <td>28</td>
-                        <td>60</td>
-                        <td>28010.50</td>
-                    </tr>
-                    <tr>
-                        <td>22/04/2021</td>
-                        <td>Claudia Miller</td>
-                        <td>46</td>
-                        <td>21</td>
-                        <td>21021.50</td>
-                    </tr>
-                    <tr>
-                        <td>22/04/2021</td>
-                        <td>Garden Jardim</td>
-                        <td>46</td>
-                        <td>21</td>
-                        <td>21021.50</td>
-                    </tr>
+                        {page.content?.map(item => (
+                            <tr key={item.id}>
+                            <td>{formatLocalDate(item.date, "dd/MM/yyyy")}</td>
+                            <td>{item.seller.name}</td>
+                            <td>{item.visited}</td>
+                            <td>{item.deals}</td>
+                            <td>{item.amount.toFixed(2)}</td>
+                            </tr>
+                        ))}
                 </tbody>
             </table>
         </div>
+        </>
     );
 }
 
