@@ -9,7 +9,7 @@ function Routes() {
                 <Route path="/" exact>
                     <Home />
                 </Route>
-                <Route path="/Dashboard">
+                <Route path="/dashboard">
                     <Dashboard />
                 </Route>
             </Switch>
